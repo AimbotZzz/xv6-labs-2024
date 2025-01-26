@@ -320,8 +320,10 @@ fork(void)
 
   acquire(&np->lock);
   np->state = RUNNABLE;
+  // copy trace_mask from parent to child
+  np->trace_mask = p->trace_mask;
   release(&np->lock);
-
+  
   return pid;
 }
 
